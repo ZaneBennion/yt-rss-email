@@ -1,10 +1,15 @@
 import smtplib
 from email.message import EmailMessage
 import os
+from datetime import datetime
 
 def send_email(videos):
     msg = EmailMessage()
-    msg['Subject'] = 'Your Daily YouTube Digest'
+
+    date_str = datetime.now().strftime("%b %d, %Y")
+
+    msg['Subject'] = f'Your Daily YouTube Digest - {date_str}'
+
     msg['From'] = os.environ.get('FROM_EMAIL')
     msg['To'] = os.environ.get('TO_EMAIL')
 
