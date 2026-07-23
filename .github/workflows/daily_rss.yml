@@ -1,11 +1,10 @@
 name: Daily YouTube RSS
 
-# Run daily at 12:00 PM UTC
 # Note: GitHub Actions uses UTC. 
 # Convert this cron schedule to your local timezone.
 on:
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '0 15 * * *'
   workflow_dispatch: # Allows you to run it manually from the Actions tab
 
 jobs:
