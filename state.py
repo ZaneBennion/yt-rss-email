@@ -24,6 +24,6 @@ def load_history():
         return json.load(f)
 
 def save_history(history):
-    # Keep the last 50 video IDs to guarantee no repeats on high-upload days
+    # Keep the last 10 video IDs to guarantee no repeats on high-upload days
     with open('history.json', 'w') as f:
-        json.dump(history[:50], f, indent=4)
+        json.dump(history[:10], f, indent=4)

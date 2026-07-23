@@ -41,18 +41,19 @@ def main():
     # 3. Sort globally by publish date (newest first)
     all_videos.sort(key=lambda x: x['published_dt'], reverse=True)
 
-    # 4. Filter out videos we've already sent, then take top 10
-    new_videos = [v for v in all_videos if v['id'] not in history][:10]
+    # 4. Take the absolute top 10 freshest videos, THEN filter out the ones we've sent
+    top_10_overall = all_videos[:10]
+    new_videos = [v for v in top_10_overall if v['id'] not in history]
 
     # 5. Send Email
     print(f"Sending {len(new_videos)} videos...")
     email_sender.send_email(new_videos)
 
     # 6. Update History
-    if new_videos:
-        new_history = [v['id'] for v in new_videos] + history
-        state.save_history(new_history)
-        print("History updated.")
+    # We now just save the IDs of the top 10 overall videos so we don't send them tomorrow
+    new_history = [v['id'] for v in top_10_overall]
+    state.save_history(new_history)
+    print("History updated.")
 
 if __name__ == "__main__":
     main()
